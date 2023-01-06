@@ -1,10 +1,10 @@
-.SUFFIXES : .cpp .o
+.SUFFIXES : .cc .cpp .o
 
 # Compiler
 CXX = g++
 
 # Compiler options
-CXXFLAGS = -W -Wall
+CXXFLAGS = -W -Wall -std=c++14
 
 # Linker
 LD = ld 
@@ -36,7 +36,7 @@ DEPS = $(SRCS:.cpp=.d)
 DEPS = $(OBJECTS:.o=.d)
 
 # Target binary
-TARGET := output
+TARGET := a.out
 
 .PHONY: clean all
 
