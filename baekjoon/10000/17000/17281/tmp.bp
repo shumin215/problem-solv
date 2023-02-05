@@ -1,0 +1,5 @@
+break /home/shumin/workspace/17_Problem-solv/baekjoon/10000/17000/17281/src/main.cpp:80
+  condition $bpnum score == 47
+break play
+break /home/shumin/workspace/17_Problem-solv/baekjoon/10000/17000/17281/src/main.cpp:58
+  condition $bpnum inning == 1
