@@ -1,27 +1,28 @@
 #include <iostream>
-#include <vector>
 #include <cstring>
-#define MAX 10001
+#include <vector>
 
 using namespace std;
 
 int N;
-int ans[MAX], finalPerm[MAX];
+const int MAX = 10000+1;
+int init_num[MAX], final_num[MAX];
 vector<int> list;
-bool isNextPerm, done;
+bool done = false;
+bool isNextPerm = false;
 bool visited[MAX];
 
-
-void print(void)
+void print()
 {
     for (int i=0; i<list.size(); i++) {
-        cout << list[i] << " ";
+        printf("%d ", list[i]);
     }
-    cout << "\n";
+    printf("\n");
 }
 
 void doDFS(int cnt)
 {
+    // Found answer already
     if (done)
         return;
 
@@ -32,17 +33,18 @@ void doDFS(int cnt)
             return;
         }
 
+        // Have to get next permutation number
         isNextPerm = true;
-
         return;
     }
 
     for (int i=1; i<=N; i++) {
         if (visited[i])
             continue;
-        if (!isNextPerm && i != ans[cnt])
+        // Skip the different number but we have to keep going in case of printing next permutation.
+        else if (!isNextPerm && init_num[cnt] != i)
             continue;
-
+        
         visited[i] = true;
         list.push_back(i);
         doDFS(cnt+1);
@@ -56,15 +58,15 @@ int main()
     cin >> N;
 
     for (int i=0; i<N; i++) {
-        cin >> ans[i];
+        cin >> init_num[i];
     }
 
-    for (int i=0; i<=N; i++) {
-        finalPerm[i] = N-i;
+    for (int i=0; i<N; i++) {
+        final_num[i] = N - i;
     }
 
-    if (memcmp(ans, finalPerm, sizeof(ans)) == 0) {
-        cout << "-1" << "\n";
+    if (memcmp(init_num, final_num, sizeof(init_num)) == 0) {
+        printf("-1\n");
         return 0;
     }
 

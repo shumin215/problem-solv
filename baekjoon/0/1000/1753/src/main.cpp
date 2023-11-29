@@ -1,37 +1,57 @@
 #include <iostream>
+#include <vector>
 #include <queue>
-#define MAX 20001
-#define INF 9999999
 
 using namespace std;
 
-int dist[MAX];
-// {destination, distance}
+const int INF = 9999999;
+const int MAX = 20000+1;
+int V, E, start;
+
+/**
+ * Edge List
+ * 
+ * | Src | Dest | Dist |
+ * | 0   | 2    | 12   |
+ * | 1   | 0    | 4    |
+ * | ... | ...  | ...  |
+*/
 vector<pair<int, int>> edge_list[MAX];
+
+/**
+ * This is distance table
+*/
+int dist_table[MAX];
+
+/**
+ * <Type, Container style, Order>
+ * pair<Distance, Destination>
+ * pq is used for ordering distances of next vertex in greater order.
+ * It contains next vertex connected to current vertex.
+*/
 priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>> > pq;
 
-int V, E;
-
-void doDijkstra(int start)
+void doDijkstra(int v)
 {
-    pq.push({0, start});
-    dist[start] = 0;
+    // Initial setting to push start vertex and update dist_table
+    pq.push({0, v});
+    dist_table[v] = 0;
 
+    // Keep popping by the end of tracking vertex
     while(!pq.empty()) {
         int cur_dist = pq.top().first;
         int cur_v = pq.top().second;
         pq.pop();
 
-        if (dist[cur_v] < cur_dist)
-            continue;
+        // Lookup edges connected to current vertex
+        for (auto edge: edge_list[cur_v]) {
+            int n_dst = edge.first;
+            int n_dist = edge.second;
 
-        for (auto e: edge_list[cur_v]) {
-            int dst = e.first;
-            int local_dist = e.second;
-
-            if (dist[dst] > dist[cur_v] + local_dist) {
-                dist[dst] = dist[cur_v] + local_dist;
-                pq.push({dist[dst], dst});
+            // If another path is shorter than previous one, update it
+            if (dist_table[n_dst] > dist_table[cur_v] + n_dist) {
+                dist_table[n_dst] = dist_table[cur_v] + n_dist;
+                pq.push({dist_table[n_dst], n_dst});
             }
         }
     }
@@ -40,25 +60,26 @@ void doDijkstra(int start)
 int main()
 {
     cin >> V >> E;
-    int start;
     cin >> start;
 
-    for (int i=0; i<E; i++) {
+    for (int i=1; i<=E; i++) {
         int src, dst, dist;
         cin >> src >> dst >> dist;
         edge_list[src].push_back({dst, dist});
     }
 
-    for (int i=1; i<=V; i++)
-        dist[i] = INF;
+    for (int i=1; i<=V; i++) {
+        dist_table[i] = INF;
+    }
 
     doDijkstra(start);
 
     for (int i=1; i<=V; i++) {
-        if (dist[i] == INF)
-            cout << "INF\n";
-        else
-            cout << dist[i] << "\n";
+        if (dist_table[i] == INF) {
+            printf("INF\n");
+        } else {
+            printf("%d\n", dist_table[i]);
+        }
     }
 
     return 0;
