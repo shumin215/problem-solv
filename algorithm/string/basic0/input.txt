@@ -1,0 +1,11 @@
+5 5 9
+abcdeabcde
+insert x
+insert y
+insert z
+move 1 3
+erase
+erase
+erase
+move 2 3
+move 0 2

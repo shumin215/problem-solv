@@ -4,7 +4,12 @@
 CXX = g++
 
 # Compiler options
-CXXFLAGS = -W -Wall -std=c++14
+CXXFLAGS = -W -Wall -std=c++14 -D_FILE_STDIN
+
+# Debug
+ifdef debug
+CXXFLAGS += -g
+endif
 
 # Linker
 LD = ld 
