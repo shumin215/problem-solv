@@ -1,0 +1,23 @@
+break push(int, int, int, int, int)
+break user.cpp:120
+disable $bpnum
+break user.cpp:84
+  condition $bpnum cur.r == 4 && cur.c == 6
+disable $bpnum
+break user.cpp:84
+  condition $bpnum cur.r == 6 && cur.c == 6
+disable $bpnum
+break user.cpp:84
+disable $bpnum
+break user.cpp:85
+  condition $bpnum cur.r == 5 && cur.c == 6
+break isMovable(std::pair<int, int>, std::pair<int, int>, std::pair<int, int>)
+disable $bpnum
+break user.cpp:58
+  condition $bpnum nr == 6 && nc == 6
+disable $bpnum
+break user.cpp:58
+  condition $bpnum nr == 6 && nc == 3
+disable $bpnum
+break user.cpp:58
+  condition $bpnum nr == 6 && nc == 5

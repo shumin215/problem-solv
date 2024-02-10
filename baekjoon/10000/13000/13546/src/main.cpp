@@ -3,7 +3,7 @@
 
 using namespace std;
 
-constexpr int SQ = 220;
+constexpr int SQ = 317;
 constexpr int MAX = 100000 + 1;
 
 int max_arr[SQ];
@@ -16,8 +16,6 @@ int main()
     ios_base::sync_with_stdio(false);
 
     freopen("input.txt", "r", stdin);
-//    string hello_str, world_str;
-//    cin >> hello_str >> world_str;
     cin >> N >> K;
 
     for (int i=1; i<=N; i++) {
